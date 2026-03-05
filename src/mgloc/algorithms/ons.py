@@ -51,7 +51,9 @@ class OnlineNewtonStep:
 
         return theta
 
-    def update(self, x: ndarray, y: int, gram_matrix: ndarray, gram_matrix_inv: ndarray):
+    def update(
+        self, x: ndarray, y: int, gram_matrix: ndarray, gram_matrix_inv: ndarray
+    ):
         # gram_matrix and gram_matrix_inv must include (x, y) information
         grad = get_loss_der1(x, y, self.coef)
         guide_theta = self.coef - grad / self.kappa * gram_matrix_inv @ x

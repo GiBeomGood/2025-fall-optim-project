@@ -20,7 +20,9 @@ class GLOC:
         lr: float = 1e-4,
         max_iteration: int = 100,
     ):
-        self.ons = OnlineNewtonStep(feature_dim, kappa, lam, theta_max_norm, lr, max_iteration)
+        self.ons = OnlineNewtonStep(
+            feature_dim, kappa, lam, theta_max_norm, lr, max_iteration
+        )
 
         self.gram_matrix = np.eye(feature_dim) * lam
         self.gram_matrix_inv = np.eye(feature_dim) / lam
@@ -68,8 +70,14 @@ class GLOC:
         return self.ons.coef
 
     def get_ellipsoid_radius(self):
-        temp = sqrt(1 + 2 / self.kappa * self.ons.ons_bound + (4 * self.var_proxy**4) / (self.kappa**4 * self.delta**2))
-        radius = self.lam * self.theta_max_norm**2 + 1 + 4 * self.ons.ons_bound / self.kappa
+        temp = sqrt(
+            1
+            + 2 / self.kappa * self.ons.ons_bound
+            + (4 * self.var_proxy**4) / (self.kappa**4 * self.delta**2)
+        )
+        radius = (
+            self.lam * self.theta_max_norm**2 + 1 + 4 * self.ons.ons_bound / self.kappa
+        )
         radius += 8 * (self.var_proxy / self.kappa) ** 2 * log(2 / self.delta * temp)
 
         radius -= self.z_t_l2_norm - self.coef_part2 @ self.coef_hat

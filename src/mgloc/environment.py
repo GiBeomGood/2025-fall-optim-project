@@ -58,7 +58,9 @@ class Environment:
         features = self.impute(features)
         best_action = self.get_optimal(features)
 
-        regret = expit(features[best_action] @ self.beta_true) - expit(features[action] @ self.beta_true)
+        regret = expit(features[best_action] @ self.beta_true) - expit(
+            features[action] @ self.beta_true
+        )
         return regret.item()
 
     def impute(self, features: ndarray):

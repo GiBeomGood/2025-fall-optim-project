@@ -74,7 +74,9 @@ def run_and_visualize():
 
         # The data for each of the 100 runs is identical (seed=42), but model initializations are different.
         # This matches the logic of the original script.
-        regret_list, reward_list, reward_g_list = _run_single_experiment(env, model, gloc, seed=42)
+        regret_list, reward_list, reward_g_list = _run_single_experiment(
+            env, model, gloc, seed=42
+        )
         regret_list_all.append(np.cumsum(regret_list))
         reward_list_all.append(np.cumsum(reward_list))
         reward_g_list_all.append(np.cumsum(reward_g_list))
@@ -103,7 +105,9 @@ def run_and_visualize():
 
     # Figure 3: Cumulative Reward Comparison
     fig3, ax3 = plt.subplots(1, 1, figsize=(10, 5))
-    ax3 = draw_plot(ax3, reward_g_list_all, color="orange", label="GLOC", t_max=config.T)
+    ax3 = draw_plot(
+        ax3, reward_g_list_all, color="orange", label="GLOC", t_max=config.T
+    )
     ax3 = draw_plot(ax3, reward_list_all, color="blue", label="M-GLOC", t_max=config.T)
     ax3.set_ylabel("Cumulative Reward")
     fig3.tight_layout()
